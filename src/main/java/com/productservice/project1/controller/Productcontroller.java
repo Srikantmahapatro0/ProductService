@@ -22,8 +22,8 @@ public class Productcontroller {
     }
 
     @PostMapping("/products")
-    public Product Createproduct2(@RequestBody CreateproductDTO newproduct) {
-        return Productservice.Createproduct(
+    public Product Createproduct(@RequestBody CreateproductDTO newproduct) {
+        return productservice.Createproduct(
                 newproduct.getTitle(),
                 newproduct.getDescription(),
                 newproduct.getImage(),
