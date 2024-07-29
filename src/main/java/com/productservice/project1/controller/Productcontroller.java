@@ -22,14 +22,15 @@ public class Productcontroller {
     }
 
     @PostMapping("/products")
-    public Product createproduct(@RequestBody CreateproductDTO newproduct) {
-        return null; //productservice.createProduct(
-          //  newproduct.getTitle(),
-          //  newproduct.getDescription(),
-            //newproduct.getImageurl(),
-           // newproduct.getCategory(),
-           //newproduct.getPrice() );
-   }@RequestMapping("/hello")
+    public Product Createproduct2(@RequestBody CreateproductDTO newproduct) {
+        return Productservice.Createproduct(
+                newproduct.getTitle(),
+                newproduct.getDescription(),
+                newproduct.getImage(),
+                newproduct.getCategory(),
+                newproduct.getPrice());
+   }
+   @RequestMapping("/hello")
    public String requestMethodName(@RequestParam String param) {
        return ("hello");
    }
