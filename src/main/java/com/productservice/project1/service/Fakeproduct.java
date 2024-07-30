@@ -1,10 +1,14 @@
 package com.productservice.project1.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.productservice.project1.DTO.FakeproductDTO;
+import com.productservice.project1.DTO.catdto;
 import com.productservice.project1.models.Category;
 import com.productservice.project1.models.Product;
 
@@ -46,4 +50,28 @@ public class Fakeproduct implements Productservice {
 
         return response.toProduct();
     }
+
+    @Override
+    public void deletepProduct(Long id) {
+        restTemplate.delete("https://fakestoreapi.com/products/"+id);
+    }
+
+    @Override
+    public List<Product> getallproducts() {
+        FakeproductDTO[] response=restTemplate.getForObject("https://fakestoreapi.com/products", FakeproductDTO[].class);
+        List<Product> products = new ArrayList<>();
+        for(FakeproductDTO fakeStoreProductDto: response) {
+            products.add(fakeStoreProductDto.toProduct());
+        }return products;
+    }
+
+    @Override
+    public List<Category> getallCategory() {
+        catdto[] response=restTemplate.getForObject("https://fakestoreapi.com/products/categories", catdto[].class);
+        List<Category> products = new ArrayList<>();
+        for(catdto Catdto: response) {
+            products.add(Catdto.tocat());
+        }return products;
+    }
 }
+
