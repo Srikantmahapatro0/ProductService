@@ -3,7 +3,9 @@ package com.productservice.project1.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired
+;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,7 +22,12 @@ public class Fakeproduct implements Productservice {
     @NonNull
     @Override
     public Product Getproductbyid(Long id){
-        FakeproductDTO fakeproductDTO=restTemplate.getForObject("https://fakestoreapi.com/products/"+id, FakeproductDTO.class);
+       ResponseEntity<FakeproductDTO> responseEntity = restTemplate.getForEntity(
+                "https://fakestoreapi.com/products/" + id,
+                FakeproductDTO.class);
+
+
+                FakeproductDTO fakeproductDTO = responseEntity.getBody();
         Product product=new Product();
         product.setId(id);
         product.setName(fakeproductDTO.getName());
@@ -36,7 +43,7 @@ public class Fakeproduct implements Productservice {
     @Override
     public Product Createproduct(String title, String description, String image, String category, double price){
         FakeproductDTO newfake = new FakeproductDTO();
-        newfake.setCategory(category);
+        
         newfake.setDescription(description);
         newfake.setPrice(price);
         newfake.setImageurl(image);
@@ -73,5 +80,34 @@ public class Fakeproduct implements Productservice {
             products.add(Catdto.tocat());
         }return products;
     }
+
+    @Override
+    public Product getproductbycategory(String name) {
+        FakeproductDTO fakeproductDTO=restTemplate.getForObject("https://fakestoreapi.com/products/category"+name,FakeproductDTO.class);
+        Product product=new Product();
+        product.setId(fakeproductDTO.getId());
+        product.setName(fakeproductDTO.getName());
+        product.setPrice(fakeproductDTO.getPrice());
+        product.setDescription(fakeproductDTO.getDescription());
+        product.setImageurl(fakeproductDTO.getImageurl());
+        Category category=new Category();
+        category.setName(name);
+        product.setCategory(category);
+        return product;
+    }
+
+    @Override
+    public Product updateproduct(Long id, String name, String des, String img, double price) {
+        FakeproductDTO fakeproductDTO=restTemplate.getForObject("https://fakestoreapi.com/products"+id,FakeproductDTO.class);
+        Product product=new Product();
+        product.setId(id);
+        product.setName(name);
+        product.setPrice(price);
+        product.setDescription(des);
+        product.setImageurl(img);
+        return product;
+    }
+
+        
 }
 

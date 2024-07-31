@@ -12,4 +12,6 @@ public interface Productservice {
     public void deletepProduct(Long id);
     public List<Product>getallproducts();
     public List<Category>getallCategory();
+    public Product getproductbycategory(String name);
+    public Product updateproduct(Long id,String name,String des,String img,double price);
 }

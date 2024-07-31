@@ -54,11 +54,13 @@ public class Productcontroller {
     @DeleteMapping("/products/{id}")
     public void deleteproduct(@PathVariable("id") Long id) {
     productservice.deletepProduct(id);
-    }@PutMapping("path/{id}")
-    public void updateproduct(){
-
+    }@PutMapping("/products/{id}")
+    public Product updateproduct(@PathVariable("id") Long id,String name,String des,String img,double price){
+           return null;
     }
-    public void getproductbycategory(){
+    @GetMapping("/products/category/{String name}")
+    public Product getproductbycategory(@PathVariable("String name") String name){
+        return productservice.getproductbycategory(name);
 
     }@GetMapping("/products")
     public List<Product> getallproducts(@RequestParam String param) {

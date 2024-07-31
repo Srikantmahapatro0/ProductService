@@ -10,8 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Product {
-    private long id;
+public class Product extends Basemodel{
     private String name;
     private String description;
     private double price;

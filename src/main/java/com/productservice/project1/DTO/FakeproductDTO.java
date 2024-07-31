@@ -5,7 +5,6 @@ import com.productservice.project1.models.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
@@ -14,16 +13,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FakeproductDTO {
     private long id;
-    @NonNull
     private String name;
-    @NonNull
     private String description;
-    
     private double price;
-    @NonNull
     private String imageurl;
     
-    private String category;
+    private String Category;
     
      public Product toProduct() {
         Product product = new Product();
@@ -31,6 +26,7 @@ public class FakeproductDTO {
         product.setName(getName());
         product.setDescription(getDescription());
         product.setImageurl(getImageurl());
+        product.setPrice(getPrice());
 
         Category category = new Category();
         category.setName(getCategory());
