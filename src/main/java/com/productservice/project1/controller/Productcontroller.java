@@ -2,6 +2,8 @@ package com.productservice.project1.controller;
 
 import java.util.List;
 
+import com.productservice.project1.service.Dbproduct;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +25,7 @@ import com.productservice.project1.service.Productservice;
 public class Productcontroller {
     private final Productservice productservice;
 
-    public Productcontroller(Productservice productservice) {
+    public Productcontroller(@Qualifier("dbquery") Productservice productservice) {
         this.productservice = productservice;
     }
 
@@ -50,11 +52,12 @@ public class Productcontroller {
    @GetMapping("/products/{id}")
    public Product Getproductbyid(@PathVariable("id") Long id) {
        return productservice.Getproductbyid(id);
-   }
+    }
     @DeleteMapping("/products/{id}")
     public void deleteproduct(@PathVariable("id") Long id) {
-    productservice.deletepProduct(id);
-    }@PutMapping("/products/{id}")
+    productservice.deleteProduct(id);
+    }
+    @PutMapping("/products/{id}")
     public Product updateproduct(@PathVariable("id") Long id,String name,String des,String img,double price){
            return null;
     }

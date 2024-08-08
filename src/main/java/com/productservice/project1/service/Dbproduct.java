@@ -2,51 +2,73 @@ package com.productservice.project1.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.productservice.project1.models.Category;
 import com.productservice.project1.models.Product;
-
+import com.productservice.project1.repo.Categoryrepo;
+import com.productservice.project1.repo.Productrepo;
+@Service("dbquery")
 public class Dbproduct implements Productservice {
+    private Productrepo Productrepo;
+    private Categoryrepo categoryrepo;
+
+    public Dbproduct(Productrepo Productrepo,
+                              Categoryrepo categoryrepo) {
+        this.Productrepo = Productrepo;
+        this.categoryrepo = categoryrepo;
+    }
 
     @Override
     public Product Getproductbyid(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Getproductbyid'");
+        return Productrepo.findByIdIs(id);
     }
 
     @Override
     public Product Createproduct(String title, String description, String image, String category, double price) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Createproduct'");
+        Product product = new Product();
+        product.setName(title);
+        product.setDescription(description);
+        product.setPrice(price);
+        product.setImageurl(image);
+
+        Category categoryFromDatabase = categoryrepo.findByTitle(category);
+        if(categoryFromDatabase == null) {
+            Category newCategory = new Category();
+            newCategory.setName(category);
+            categoryFromDatabase = newCategory;
+        }
+        product.setCategory(categoryFromDatabase);
+
+        List<Product> productsTemp = categoryFromDatabase.getProducts();
+
+        return Productrepo.save(product);
+
     }
 
     @Override
-    public void deletepProduct(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletepProduct'");
+    public void deleteProduct(Long id) {
+        return ;
     }
 
     @Override
     public List<Product> getallproducts() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getallproducts'");
+        return Productrepo.findAll();
     }
 
     @Override
     public List<Category> getallCategory() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getallCategory'");
+        return null;
     }
 
     @Override
     public Product getproductbycategory(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getproductbycategory'");
+        return null;
     }
 
     @Override
     public Product updateproduct(Long id, String name, String des, String img, double price) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateproduct'");
-    }
+        return null;}
+
     
 }

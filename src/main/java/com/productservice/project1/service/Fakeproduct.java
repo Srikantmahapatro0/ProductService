@@ -15,11 +15,10 @@ import com.productservice.project1.models.Category;
 import com.productservice.project1.models.Product;
 
 import lombok.NonNull;
-@Service
+@Service("thirdparty")
 public class Fakeproduct implements Productservice {
-    @Autowired
+    
     private RestTemplate restTemplate;
-    @NonNull
     @Override
     public Product Getproductbyid(Long id){
        ResponseEntity<FakeproductDTO> responseEntity = restTemplate.getForEntity(
@@ -59,7 +58,7 @@ public class Fakeproduct implements Productservice {
     }
 
     @Override
-    public void deletepProduct(Long id) {
+    public void deleteProduct(Long id) {
         restTemplate.delete("https://fakestoreapi.com/products/"+id);
     }
 
