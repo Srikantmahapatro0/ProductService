@@ -10,6 +10,7 @@ import com.productservice.project1.repo.Categoryrepo;
 import com.productservice.project1.repo.Productrepo;
 @Service("dbquery")
 public class Dbproduct implements Productservice {
+    private static final String String = null;
     private Productrepo Productrepo;
     private Categoryrepo categoryrepo;
 
@@ -63,7 +64,7 @@ public class Dbproduct implements Productservice {
 
     @Override
     public Product getproductbycategory(String name) {
-        return null;
+        return Productrepo.findByCategory(name);
     }
 
     @Override
