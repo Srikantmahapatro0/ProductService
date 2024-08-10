@@ -1,5 +1,6 @@
 package com.productservice.project1.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Category extends Basemodel {
+public class Category extends Basemodel implements Serializable {
     private String name;
      @OneToMany(mappedBy = "category", cascade = {CascadeType.REMOVE})
     @JsonIgnore

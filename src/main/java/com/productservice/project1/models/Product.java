@@ -1,5 +1,7 @@
 package com.productservice.project1.models;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -15,7 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Product extends Basemodel{
+public class Product extends Basemodel implements Serializable{
     private String name;
     private String description;
     private double price;

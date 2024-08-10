@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired
 ;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,13 +19,19 @@ import lombok.NonNull;
 @Service("thirdparty")
 public class Fakeproduct implements Productservice {
     
-    private RestTemplate restTemplate;
+        private RedisTemplate<String, Object> redisTemplate;
+        private RestTemplate restTemplate;
+
     @Override
     public Product Getproductbyid(Long id){
+        Product productFromCache = (Product) redisTemplate.opsForValue().get(String.valueOf(id));
+        if(productFromCache != null) {
+            return productFromCache;
+        }
        ResponseEntity<FakeproductDTO> responseEntity = restTemplate.getForEntity(
                 "https://fakestoreapi.com/products/" + id,
                 FakeproductDTO.class);
-
+              
 
                 FakeproductDTO fakeproductDTO = responseEntity.getBody();
         Product product=new Product();
@@ -36,6 +43,7 @@ public class Fakeproduct implements Productservice {
         Category category=new Category();
         category.setName(fakeproductDTO.getCategory());
         product.setCategory(category);
+        redisTemplate.opsForValue().set(String.valueOf(id), product);
         return product;
     }
     
