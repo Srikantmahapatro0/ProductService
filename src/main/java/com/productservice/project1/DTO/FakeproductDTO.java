@@ -17,7 +17,6 @@ public class FakeproductDTO {
     private String description;
     private double price;
     private String imageurl;
-    
     private String Category;
     
      public Product toProduct() {

@@ -25,7 +25,7 @@ import com.productservice.project1.service.Productservice;
 public class Productcontroller {
     private final Productservice productservice;
 
-    public Productcontroller(@Qualifier("dbquery") Productservice productservice) {
+    public Productcontroller(@Qualifier("thirdparty") Productservice productservice) {
         this.productservice = productservice;
     }
 
@@ -49,6 +49,11 @@ public class Productcontroller {
     //    ArrayList <Integer>a=new ArrayList<Integer>();
     //    return a;
    // }
+    @GetMapping("/error")
+    public String error(){
+        String s="Problem in my code";
+        return s;
+    }
    @GetMapping("/products/{id}")
    public Product Getproductbyid(@PathVariable("id") Long id) {
        return productservice.Getproductbyid(id);

@@ -29,7 +29,7 @@ public class Fakeproduct implements Productservice {
             return productFromCache;
         }
        ResponseEntity<FakeproductDTO> responseEntity = restTemplate.getForEntity(
-                "https://fakestoreapi.com/products/" + id,
+                "https://fakestoreapi.com/products/"+ id,
                 FakeproductDTO.class);
               
 
